@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -10,10 +11,26 @@ from django.views.generic import (
     UpdateView,
 )
 
-from project.views import HxOnlyTemplateMixin, HxPageTemplateMixin
-
 from .forms import PhaseCreateForm
 from .models import Phase, get_month_dict, get_position_by_parent, move_younger_siblings
+
+
+class HxPageTemplateMixin:
+    """Switches template depending on request.htmx"""
+
+    def get_template_names(self):
+        if not self.request.htmx:
+            return [self.template_name.replace("htmx/", "")]
+        return [self.template_name]
+
+
+class HxOnlyTemplateMixin:
+    """Restricts view to HTMX requests"""
+
+    def get_template_names(self):
+        if not self.request.htmx:
+            raise Http404("Request without HTMX headers")
+        return [self.template_name]
 
 
 class RefreshListMixin:
