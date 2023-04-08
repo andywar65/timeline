@@ -1,0 +1,5 @@
+django>=4.2,<5.0
+django-htmx
+django-tree-queries
+django-bootstrap-v5
+factory_boy
