@@ -1,8 +1,7 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from .views import (
-    BaseRedirectView,
+from .views.phase import (
     PhaseAddButtonView,
     PhaseCreateView,
     PhaseDeleteView,
@@ -11,8 +10,8 @@ from .views import (
     PhaseMoveDownView,
     PhaseMoveUpView,
     PhaseUpdateView,
-    ProjectListView,
 )
+from .views.project import BaseRedirectView, ProjectListView
 
 app_name = "timeline"
 urlpatterns = [
