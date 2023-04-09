@@ -54,6 +54,7 @@ class ProjectCreateView(HxOnlyTemplateMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        self.object.create_suite()
         return reverse("timeline:project_add_button") + "?refresh=true"
 
 

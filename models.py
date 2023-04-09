@@ -162,6 +162,10 @@ class Phase(TreeNode):
         )
         return style
 
+    def create_suite(self):
+        print("create suite")
+        return
+
     def save(self, *args, **kwargs):
         if not self.parent and not self.start:
             self.start = now()

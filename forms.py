@@ -15,4 +15,4 @@ class PhaseCreateForm(ModelForm):
 class ProjectCreateForm(ModelForm):
     class Meta:
         model = Phase
-        exclude = ("parent", "position", "delay")
+        fields = ("title", "start")
