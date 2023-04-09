@@ -42,3 +42,9 @@
     <p>{% trans "No phases yet" %}</p>
   {% endif %}
 </table>
+<a class="link-primary"
+   hx-get="{% url 'timeline:project_list' year=year month=month %}"
+   hx-target="#content"
+   hx-push-url="true">
+  {% trans "Back to all projects" %}
+</a>
