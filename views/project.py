@@ -13,7 +13,11 @@ from django.views.generic import CreateView, ListView, RedirectView, TemplateVie
 # UpdateView,
 from timeline.forms import ProjectCreateForm
 from timeline.models import Phase, get_month_dict, get_position_by_parent
-from timeline.views.phase import HxOnlyTemplateMixin, HxPageTemplateMixin
+from timeline.views.phase import (
+    ConditionalRefreshListMixin,
+    HxOnlyTemplateMixin,
+    HxPageTemplateMixin,
+)
 
 
 class BaseRedirectView(RedirectView):
@@ -60,13 +64,9 @@ class ProjectCreateView(HxOnlyTemplateMixin, CreateView):
         return reverse("timeline:project_add_button") + "?refresh=true"
 
 
-class ProjectAddButtonView(HxOnlyTemplateMixin, TemplateView):
+class ProjectAddButtonView(
+    HxOnlyTemplateMixin, ConditionalRefreshListMixin, TemplateView
+):
     """Rendered in #add_button, may trigger refresh list"""
 
     template_name = "timeline/project/htmx/add_button.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if "refresh" in request.GET:
-            response["HX-Trigger-After-Swap"] = "refreshList"
-        return response

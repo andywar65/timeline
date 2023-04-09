@@ -47,6 +47,16 @@ class RefreshListMixin:
         return response
 
 
+class ConditionalRefreshListMixin:
+    """Triggers the refresh list event that holds state"""
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if "refresh" in request.GET:
+            response["HX-Trigger-After-Swap"] = "refreshList"
+        return response
+
+
 class PhaseListView(HxPageTemplateMixin, ListView):
     """Rendered in #content"""
 
@@ -83,30 +93,20 @@ class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
         return reverse("timeline:add_button") + "?refresh=true"
 
 
-class PhaseAddButtonView(HxOnlyTemplateMixin, TemplateView):
+class PhaseAddButtonView(
+    HxOnlyTemplateMixin, ConditionalRefreshListMixin, TemplateView
+):
     """Rendered in #add_button, may trigger refresh list"""
 
     template_name = "timeline/htmx/add_button.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super(PhaseAddButtonView, self).dispatch(request, *args, **kwargs)
-        if "refresh" in request.GET:
-            response["HX-Trigger-After-Swap"] = "refreshList"
-        return response
 
-
-class PhaseDetailView(HxOnlyTemplateMixin, DetailView):
+class PhaseDetailView(HxOnlyTemplateMixin, ConditionalRefreshListMixin, DetailView):
     """Rendered in #phase-index-{{ self.id }}, may trigger refresh list"""
 
     model = Phase
     context_object_name = "phase"
     template_name = "timeline/htmx/detail.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if "refresh" in request.GET:
-            response["HX-Trigger-After-Swap"] = "refreshList"
-        return response
 
 
 class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
