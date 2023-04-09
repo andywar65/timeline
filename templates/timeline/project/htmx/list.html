@@ -28,8 +28,10 @@
           </td>
           <td>
             <div style="{% draw_project_bar_chart phase year month %}">
-              <a class="link-dark"
-                 href="#"
+              <a class="link-primary"
+                 hx-get="{% url 'timeline:list' year=year month=month %}"
+                 hx-target="#content"
+                 hx-push-url="true"
                  title="{{ phase.get_project_popup }}">
                 <i class="fa fa-info-circle"></i>
               </a>
