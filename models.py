@@ -163,7 +163,14 @@ class Phase(TreeNode):
         return style
 
     def create_suite(self):
-        print("create suite")
+        last = self
+        for i in range(1, 10, 1):
+            p = Phase()
+            p.parent = last
+            p.title = self.TYPES[i][1]
+            p.phase_type = self.TYPES[i][0]
+            p.save()
+            last = p
         return
 
     def save(self, *args, **kwargs):
