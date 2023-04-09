@@ -88,6 +88,20 @@ class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
     form_class = PhaseCreateForm
     template_name = "timeline/htmx/create.html"
 
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.project = get_object_or_404(Phase, id=kwargs["pk"])
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["parent"] = self.project
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["project"] = self.project
+        return context
+
     def form_valid(self, form):
         form.instance.position = get_position_by_parent(form.instance.parent)
         report = _("Added phase '%(title)s'") % {"title": form.instance.title}
@@ -95,7 +109,10 @@ class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
         return super(PhaseCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse("timeline:add_button") + "?refresh=true"
+        return (
+            reverse("timeline:add_button", kwargs={"pk": self.project.id})
+            + "?refresh=true"
+        )
 
 
 class PhaseAddButtonView(
@@ -104,6 +121,11 @@ class PhaseAddButtonView(
     """Rendered in #add_button, may trigger refresh list"""
 
     template_name = "timeline/htmx/add_button.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["project"] = get_object_or_404(Phase, id=self.kwargs["pk"])
+        return context
 
 
 class PhaseDetailView(HxOnlyTemplateMixin, ConditionalRefreshListMixin, DetailView):

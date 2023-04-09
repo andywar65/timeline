@@ -48,12 +48,12 @@ urlpatterns = [
         name="list",
     ),
     path(
-        "phase/create/",
+        "project/<pk>/phase/create/",
         PhaseCreateView.as_view(),
         name="create",
     ),
     path(
-        "phase/add/button/",
+        "project/<pk>/add/button/",
         PhaseAddButtonView.as_view(),
         name="add_button",
     ),

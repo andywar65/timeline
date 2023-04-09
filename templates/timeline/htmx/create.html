@@ -2,7 +2,7 @@
 
 <div class="card text-dark">
   <form
-    hx-post="{% url 'timeline:create' %}"
+    hx-post="{% url 'timeline:create' pk=project.id %}"
     hx-target="#add-button">
     <div class="card-body">
       {% include "timeline/htmx/form_fields.html" %}
@@ -12,7 +12,7 @@
       </button>
       <button class="btn-close"
               title="{% trans 'Dismiss' %}"
-              hx-get="{% url 'timeline:add_button' %}"
+              hx-get="{% url 'timeline:add_button' pk=project.id %}"
               hx-target="#add-button">
       </button>
     </div>
