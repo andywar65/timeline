@@ -29,7 +29,7 @@
           <td>
             <div style="{% draw_project_bar_chart phase year month %}">
               <a class="link-primary"
-                 hx-get="{% url 'timeline:list' year=year month=month %}"
+                 hx-get="{% url 'timeline:list' pk=phase.id year=year month=month %}"
                  hx-target="#content"
                  hx-push-url="true"
                  title="{{ phase.get_project_popup }}">

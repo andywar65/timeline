@@ -63,13 +63,18 @@ class PhaseListView(HxPageTemplateMixin, ListView):
     model = Phase
     template_name = "timeline/htmx/list.html"
 
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.project = get_object_or_404(Phase, id=kwargs["pk"])
+
     def get_queryset(self):
-        qs = super(PhaseListView, self).get_queryset()
+        qs = self.project.descendants(include_self=True)
         qs = qs.with_tree_fields()
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(PhaseListView, self).get_context_data()
+        context = super().get_context_data()
+        context["project"] = self.project
         context["year"] = self.kwargs["year"]
         context["month"] = self.kwargs["month"]
         context["month_dict"] = get_month_dict(context["year"], context["month"])

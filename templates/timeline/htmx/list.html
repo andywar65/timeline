@@ -2,7 +2,7 @@
 {% load bootstrap5 %}
 {% load timeline_tags %}
 
-<div hx-get="{% url 'timeline:list' year=year month=month %}"
+<div hx-get="{% url 'timeline:list' pk=project.id year=year month=month %}"
      hx-trigger="refreshList from:body"
      hx-target="#content"
      hx-push-url="true">

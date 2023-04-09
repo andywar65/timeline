@@ -20,6 +20,7 @@ from .views.project import (
 
 app_name = "timeline"
 urlpatterns = [
+    # Project urlpatterns
     path(
         "",
         BaseRedirectView.as_view(),
@@ -40,8 +41,9 @@ urlpatterns = [
         ProjectAddButtonView.as_view(),
         name="project_add_button",
     ),
+    # Phase urlpatterns
     path(
-        "<int:year>/<int:month>/",
+        _("project/<pk>/<int:year>/<int:month>/"),
         PhaseListView.as_view(),
         name="list",
     ),

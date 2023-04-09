@@ -4,9 +4,9 @@
   <div class="col">
     <a class="link-primary"
        {% if month < 7 %}
-         hx-get="{% url 'timeline:list' year=year|add:'-1' month=7 %}"
+         hx-get="{% url 'timeline:list' pk=project.id year=year|add:'-1' month=7 %}"
        {% else %}
-         hx-get="{% url 'timeline:list' year=year month=1 %}"
+         hx-get="{% url 'timeline:list' pk=project.id year=year month=1 %}"
        {% endif %}
        hx-target="#content"
        hx-push-url="true"
@@ -24,9 +24,9 @@
   <div class="col text-end">
     <a class="link-primary"
        {% if month < 7 %}
-         hx-get="{% url 'timeline:list' year=year month=7 %}"
+         hx-get="{% url 'timeline:list' pk=project.id year=year month=7 %}"
        {% else %}
-         hx-get="{% url 'timeline:list' year=year|add:'1' month=1 %}"
+         hx-get="{% url 'timeline:list' pk=project.id year=year|add:'1' month=1 %}"
        {% endif %}
        hx-target="#content"
        hx-push-url="true"
