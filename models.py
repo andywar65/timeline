@@ -123,6 +123,17 @@ class Phase(TreeNode):
         }
         return popup
 
+    def get_project_popup(self):
+        start, end = self.get_start_end()  # noqa
+        last = self.descendants().last()
+        last_start, last_end = last.get_start_end()  # noqa
+        popup = _("Type: %(type)s, start: %(start)s, end: %(end)s") % {
+            "type": _("Project"),
+            "start": start,
+            "end": last_end,
+        }
+        return popup
+
     def draw_bar_chart(self, year, month):
         start, end = self.get_start_end()
         chart_start, chart_end = get_chart_start_end(year, month)
@@ -132,6 +143,20 @@ class Phase(TreeNode):
         style = (
             "background-color: %(color)s; margin-left: %(margin)s; width: %(width)s"
             % {"color": self.phase_type, "margin": margin, "width": width}
+        )
+        return style
+
+    def draw_project_bar_chart(self, year, month):
+        start, end = self.get_start_end()  # noqa
+        last = self.descendants().last()
+        last_start, last_end = last.get_start_end()  # noqa
+        chart_start, chart_end = get_chart_start_end(year, month)
+        margin, width = get_margin_width(start, last_end, chart_start, chart_end)
+        margin = str(margin) + "%"
+        width = str(width) + "%"
+        style = (
+            "background-color: %(color)s; margin-left: %(margin)s; width: %(width)s"
+            % {"color": "#cccccc", "margin": margin, "width": width}
         )
         return style
 
