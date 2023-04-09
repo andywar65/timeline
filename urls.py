@@ -1,4 +1,5 @@
 from django.urls import path
+from django.utils.translation import gettext_lazy as _
 
 from .views import (
     BaseRedirectView,
@@ -10,6 +11,7 @@ from .views import (
     PhaseMoveDownView,
     PhaseMoveUpView,
     PhaseUpdateView,
+    ProjectListView,
 )
 
 app_name = "timeline"
@@ -18,6 +20,11 @@ urlpatterns = [
         "",
         BaseRedirectView.as_view(),
         name="base",
+    ),
+    path(
+        _("project/list/<int:year>/<int:month>/"),
+        ProjectListView.as_view(),
+        name="project_list",
     ),
     path(
         "<int:year>/<int:month>/",

@@ -49,8 +49,26 @@ class BaseRedirectView(RedirectView):
 
     def get_redirect_url(self):
         return reverse(
-            "timeline:list", kwargs={"year": now().year, "month": now().month}
+            "timeline:project_list", kwargs={"year": now().year, "month": now().month}
         )
+
+
+class ProjectListView(HxPageTemplateMixin, ListView):
+    """Rendered in #content"""
+
+    model = Phase
+    template_name = "timeline/project/htmx/list.html"
+
+    def get_queryset(self):
+        qs = Phase.objects.filter(parent_id=None)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["year"] = self.kwargs["year"]
+        context["month"] = self.kwargs["month"]
+        context["month_dict"] = get_month_dict(context["year"], context["month"])
+        return context
 
 
 class PhaseListView(HxPageTemplateMixin, ListView):
