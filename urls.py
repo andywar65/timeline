@@ -11,7 +11,12 @@ from .views.phase import (
     PhaseMoveUpView,
     PhaseUpdateView,
 )
-from .views.project import BaseRedirectView, ProjectListView
+from .views.project import (
+    BaseRedirectView,
+    ProjectAddButtonView,
+    ProjectCreateView,
+    ProjectListView,
+)
 
 app_name = "timeline"
 urlpatterns = [
@@ -24,6 +29,16 @@ urlpatterns = [
         _("project/list/<int:year>/<int:month>/"),
         ProjectListView.as_view(),
         name="project_list",
+    ),
+    path(
+        "project/create/",
+        ProjectCreateView.as_view(),
+        name="project_create",
+    ),
+    path(
+        "project/add/button/",
+        ProjectAddButtonView.as_view(),
+        name="project_add_button",
     ),
     path(
         "<int:year>/<int:month>/",
