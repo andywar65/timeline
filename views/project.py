@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView, RedirectView, TemplateView
-
 from timeline.forms import ProjectCreateForm
 from timeline.models import Phase, get_month_dict, get_position_by_parent
 from timeline.views.phase import (

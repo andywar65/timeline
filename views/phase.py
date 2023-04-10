@@ -10,7 +10,6 @@ from django.views.generic import (
     TemplateView,
     UpdateView,
 )
-
 from timeline.forms import PhaseCreateForm
 from timeline.models import (
     Phase,
