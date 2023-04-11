@@ -82,7 +82,7 @@ class PhaseListView(HxPageTemplateMixin, ListView):
 
 
 class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
-    """Rendered in and redirects to #add_button"""
+    """Rendered in #add_button, swaps none"""
 
     model = Phase
     form_class = PhaseCreateForm
@@ -109,10 +109,7 @@ class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
         return super(PhaseCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return (
-            reverse("timeline:add_button", kwargs={"pk": self.project.id})
-            + "?refresh=true"
-        )
+        return reverse("timeline:refresh_list")
 
 
 class RefreshListView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
@@ -121,10 +118,8 @@ class RefreshListView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
     template_name = "timeline/htmx/none.html"
 
 
-class PhaseAddButtonView(
-    HxOnlyTemplateMixin, ConditionalRefreshListMixin, TemplateView
-):
-    """Rendered in #add_button, may trigger refresh list"""
+class PhaseAddButtonView(HxOnlyTemplateMixin, TemplateView):
+    """Rendered in #add_button"""
 
     template_name = "timeline/htmx/add_button.html"
 

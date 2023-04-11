@@ -37,7 +37,7 @@ class ProjectListView(HxPageTemplateMixin, ListView):
 
 
 class ProjectCreateView(HxOnlyTemplateMixin, CreateView):
-    """Rendered in and redirects to #add_button"""
+    """Rendered in #add_button, swaps none"""
 
     model = Phase
     form_class = ProjectCreateForm
