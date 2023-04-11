@@ -47,16 +47,6 @@ class RefreshListMixin:
         return response
 
 
-class ConditionalRefreshListMixin:
-    """Triggers the refresh list event that holds state"""
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if "refresh" in request.GET:
-            response["HX-Trigger-After-Swap"] = "refreshList"
-        return response
-
-
 class PhaseListView(HxPageTemplateMixin, ListView):
     """Rendered in #content"""
 
@@ -129,12 +119,20 @@ class PhaseAddButtonView(HxOnlyTemplateMixin, TemplateView):
         return context
 
 
-class PhaseDetailView(HxOnlyTemplateMixin, ConditionalRefreshListMixin, DetailView):
-    """Rendered in #phase-index-{{ self.id }}, may trigger refresh list"""
+class PhaseDetailView(HxOnlyTemplateMixin, DetailView):
+    """Rendered in #phase-index-{{ self.id }}"""
 
     model = Phase
     context_object_name = "phase"
     template_name = "timeline/htmx/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        if "project" in self.request.GET:
+            context["project"] = get_object_or_404(
+                Phase, id=self.request.GET["project"]
+            )
+        return context
 
 
 class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
@@ -160,9 +158,7 @@ class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
         return super(PhaseUpdateView, self).form_valid(form)
 
     def get_success_url(self, *args, **kwargs):
-        return (
-            reverse("timeline:detail", kwargs={"pk": self.object.id}) + "?refresh=true"
-        )
+        return reverse("timeline:refresh_list")
 
 
 class PhaseDeleteView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
