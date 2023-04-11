@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-11 23:29+0200\n"
-"PO-Revision-Date: 2023-04-11 23:41+0200\n"
+"POT-Creation-Date: 2023-04-12 00:34+0200\n"
+"PO-Revision-Date: 2023-04-12 00:35+0200\n"
 "Last-Translator: andywar65 <andy.war1965@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
+
+#: .\timeline\forms.py:18
+msgid "Create suite"
+msgstr ""
 
 #: .\timeline\models.py:12
 msgid "Other"
@@ -62,24 +66,40 @@ msgstr "Progetto di manutenzione"
 msgid "Name"
 msgstr "Nome"
 
-#: .\timeline\models.py:35 .\timeline\models.py:36
+#: .\timeline\models.py:29
+msgid "Type"
+msgstr "Tipo"
+
+#: .\timeline\models.py:35
+msgid "Start"
+msgstr "Inizio"
+
+#: .\timeline\models.py:37
+msgid "Duration"
+msgstr "Durata"
+
+#: .\timeline\models.py:37 .\timeline\models.py:39
 msgid "In weeks"
 msgstr "In settimane"
 
 #: .\timeline\models.py:39
+msgid "Delay"
+msgstr "Sfasamento"
+
+#: .\timeline\models.py:42
 msgid "Phase"
 msgstr "Fase"
 
-#: .\timeline\models.py:40
+#: .\timeline\models.py:43
 msgid "Phases"
 msgstr "Fasi"
 
-#: .\timeline\models.py:119 .\timeline\models.py:131
+#: .\timeline\models.py:122 .\timeline\models.py:134
 #, python-format
 msgid "Type: %(type)s, start: %(start)s, end: %(end)s"
 msgstr "Tipo: %(type)s, inizio: %(start)s, fine: %(end)s"
 
-#: .\timeline\models.py:132
+#: .\timeline\models.py:135
 msgid "Project"
 msgstr "Progetto"
 
@@ -178,7 +198,7 @@ msgstr "Aggiunta fase '%(title)s'"
 msgid "Deleted phase '%(title)s'"
 msgstr "Eliminata fase '%(title)s'"
 
-#: .\timeline\views\project.py:48
+#: .\timeline\views\project.py:52
 #, python-format
 msgid "Added project '%(title)s'"
 msgstr "Aggiunto progetto '%(title)s'"
