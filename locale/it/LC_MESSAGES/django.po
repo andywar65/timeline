@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-11 23:29+0200\n"
+"PO-Revision-Date: 2023-04-11 23:41+0200\n"
+"Last-Translator: andywar65 <andy.war1965@gmail.com>\n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: .\timeline\models.py:12
+msgid "Other"
+msgstr "Altro"
+
+#: .\timeline\models.py:13
+msgid "Feasibility study"
+msgstr "Studio di fattibilità"
+
+#: .\timeline\models.py:14
+msgid "Preliminary design"
+msgstr "Progetto preliminare"
+
+#: .\timeline\models.py:15
+msgid "Definitive design"
+msgstr "Progetto definitivo"
+
+#: .\timeline\models.py:16
+msgid "Authoring"
+msgstr "Perizia"
+
+#: .\timeline\models.py:17
+msgid "Construction design"
+msgstr "Progetto esecutivo"
+
+#: .\timeline\models.py:18
+msgid "Tender design"
+msgstr "Progetto di gara"
+
+#: .\timeline\models.py:19
+msgid "Project management"
+msgstr ""
+
+#: .\timeline\models.py:20
+msgid "Construction supervision"
+msgstr "Direzione lavori"
+
+#: .\timeline\models.py:21
+msgid "Maintenance design"
+msgstr "Progetto di manutenzione"
+
+#: .\timeline\models.py:25
+msgid "Name"
+msgstr "Nome"
+
+#: .\timeline\models.py:35 .\timeline\models.py:36
+msgid "In weeks"
+msgstr "In settimane"
+
+#: .\timeline\models.py:39
+msgid "Phase"
+msgstr "Fase"
+
+#: .\timeline\models.py:40
+msgid "Phases"
+msgstr "Fasi"
+
+#: .\timeline\models.py:119 .\timeline\models.py:131
+#, python-format
+msgid "Type: %(type)s, start: %(start)s, end: %(end)s"
+msgstr "Tipo: %(type)s, inizio: %(start)s, fine: %(end)s"
+
+#: .\timeline\models.py:132
+msgid "Project"
+msgstr "Progetto"
+
+#: .\timeline\templates\timeline\htmx\add_button.html:6
+msgid "Add phase"
+msgstr "Aggiungi fase"
+
+#: .\timeline\templates\timeline\htmx\create.html:10
+#: .\timeline\templates\timeline\project\htmx\create.html:11
+msgid "Add"
+msgstr "Aggiungi"
+
+#: .\timeline\templates\timeline\htmx\create.html:14
+#: .\timeline\templates\timeline\htmx\update.html:16
+#: .\timeline\templates\timeline\project\htmx\create.html:15
+msgid "Dismiss"
+msgstr "Annulla"
+
+#: .\timeline\templates\timeline\htmx\delete.html:4
+msgid "Deleting..."
+msgstr "In eliminazione..."
+
+#: .\timeline\templates\timeline\htmx\detail.html:21
+msgid "Move up"
+msgstr "Muovi su"
+
+#: .\timeline\templates\timeline\htmx\detail.html:28
+msgid "Move down"
+msgstr "Muovi giù"
+
+#: .\timeline\templates\timeline\htmx\list.html:18
+msgid "Phase title"
+msgstr "Titolo della fase"
+
+#: .\timeline\templates\timeline\htmx\list.html:42
+msgid "No phases yet"
+msgstr "Ancora nessuna fase"
+
+#: .\timeline\templates\timeline\htmx\list.html:49
+msgid "Back to all projects"
+msgstr "Torna ai progetti"
+
+#: .\timeline\templates\timeline\htmx\move.html:4
+msgid "Moving..."
+msgstr "In spostamento..."
+
+#: .\timeline\templates\timeline\htmx\update.html:13
+msgid "Update"
+msgstr "Modifica"
+
+#: .\timeline\templates\timeline\htmx\update.html:24
+msgid "Delete phase"
+msgstr "Elimina la fase"
+
+#: .\timeline\templates\timeline\htmx\update.html:28
+msgid "Are you sure you want to delete phase"
+msgstr "Sei sicuro di voler eliminare la fase"
+
+#: .\timeline\templates\timeline\htmx\year.html:13
+#: .\timeline\templates\timeline\project\htmx\year.html:13
+msgid "Previous semester"
+msgstr "Semestre precedente"
+
+#: .\timeline\templates\timeline\htmx\year.html:33
+#: .\timeline\templates\timeline\project\htmx\year.html:33
+msgid "Next semester"
+msgstr "Semestre successivo"
+
+#: .\timeline\templates\timeline\project\htmx\add_button.html:6
+msgid "Add project"
+msgstr "Aggiungi progetto"
+
+#: .\timeline\templates\timeline\project\htmx\list.html:18
+msgid "Project title"
+msgstr "Titolo del progetto"
+
+#: .\timeline\templates\timeline\project\htmx\list.html:44
+msgid "No projects yet"
+msgstr "Ancora nessun progetto"
+
+#: .\timeline\urls.py:37
+msgid "project/list/year/<int:year>/<int:month>/"
+msgstr "progetto/lista/anno/<int:year>/<int:month>/"
+
+#: .\timeline\urls.py:53
+msgid "project/<pk>/year/<int:year>/<int:month>/"
+msgstr "progetto/<pk>/anno/<int:year>/<int:month>/"
+
+#: .\timeline\views\phase.py:97
+#, python-format
+msgid "Added phase '%(title)s'"
+msgstr "Aggiunta fase '%(title)s'"
+
+#: .\timeline\views\phase.py:172
+#, python-format
+msgid "Deleted phase '%(title)s'"
+msgstr "Eliminata fase '%(title)s'"
+
+#: .\timeline\views\project.py:48
+#, python-format
+msgid "Added project '%(title)s'"
+msgstr "Aggiunto progetto '%(title)s'"
