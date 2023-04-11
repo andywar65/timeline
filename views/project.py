@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, RedirectView, TemplateView
+from django.views.generic import FormView, ListView, RedirectView, TemplateView
 
 from timeline.forms import ProjectCreateForm
 from timeline.models import Phase, get_month_dict, get_position_by_parent
@@ -36,7 +36,7 @@ class ProjectListView(HxPageTemplateMixin, ListView):
         return context
 
 
-class ProjectCreateView(HxOnlyTemplateMixin, CreateView):
+class ProjectCreateView(HxOnlyTemplateMixin, FormView):
     """Rendered in #add_button, swaps none"""
 
     model = Phase
@@ -44,13 +44,18 @@ class ProjectCreateView(HxOnlyTemplateMixin, CreateView):
     template_name = "timeline/project/htmx/create.html"
 
     def form_valid(self, form):
-        form.instance.position = get_position_by_parent(None)
-        report = _("Added project '%(title)s'") % {"title": form.instance.title}
+        project = Phase()
+        project.title = form.cleaned_data["title"]
+        project.start = form.cleaned_data["start"]
+        project.position = get_position_by_parent(None)
+        project.save()
+        report = _("Added project '%(title)s'") % {"title": project.title}
         messages.success(self.request, report)
+        if form.cleaned_data["suite"]:
+            project.create_suite()
         return super().form_valid(form)
 
     def get_success_url(self):
-        self.object.create_suite()
         return reverse("timeline:refresh_list")
 
 
