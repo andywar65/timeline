@@ -143,11 +143,11 @@ class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
     template_name = "timeline/htmx/update.html"
 
     def setup(self, request, *args, **kwargs):
-        super(PhaseUpdateView, self).setup(request, *args, **kwargs)
+        super().setup(request, *args, **kwargs)
         self.original_parent = None
 
     def get_object(self, queryset=None):
-        obj = super(PhaseUpdateView, self).get_object(queryset=None)
+        obj = super().get_object(queryset=None)
         self.original_parent = obj.parent
         return obj
 
@@ -155,7 +155,7 @@ class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
         if not self.original_parent == form.instance.parent:
             move_younger_siblings(self.original_parent, form.instance.position)
             form.instance.position = get_position_by_parent(form.instance.parent)
-        return super(PhaseUpdateView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self, *args, **kwargs):
         return reverse("timeline:refresh_list")
@@ -167,7 +167,7 @@ class PhaseDeleteView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
     template_name = "timeline/htmx/delete.html"
 
     def setup(self, request, *args, **kwargs):
-        super(PhaseDeleteView, self).setup(request, *args, **kwargs)
+        super().setup(request, *args, **kwargs)
         phase = get_object_or_404(Phase, id=self.kwargs["pk"])
         report = _("Deleted phase '%(title)s'") % {"title": phase.title}
         messages.error(request, report)
@@ -181,7 +181,7 @@ class PhaseMoveDownView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
     template_name = "timeline/htmx/move.html"
 
     def setup(self, request, *args, **kwargs):
-        super(PhaseMoveDownView, self).setup(request, *args, **kwargs)
+        super().setup(request, *args, **kwargs)
         self.object = get_object_or_404(Phase, id=self.kwargs["pk"])
         self.object.move_down()
 
@@ -192,6 +192,6 @@ class PhaseMoveUpView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
     template_name = "timeline/htmx/move.html"
 
     def setup(self, request, *args, **kwargs):
-        super(PhaseMoveUpView, self).setup(request, *args, **kwargs)
+        super().setup(request, *args, **kwargs)
         self.object = get_object_or_404(Phase, id=self.kwargs["pk"])
         self.object.move_up()
