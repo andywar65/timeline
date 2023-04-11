@@ -1,7 +1,7 @@
 import calendar
 from datetime import date, timedelta
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.timezone import now
 
@@ -16,6 +16,7 @@ from .models import (
 )
 
 
+@override_settings(USE_I18N=False)
 class PhaseModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
