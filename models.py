@@ -26,14 +26,17 @@ class Phase(TreeNode):
         max_length=50,
     )
     phase_type = models.CharField(
+        _("Type"),
         max_length=7,
         choices=TYPES,
         default="#dddddd",
     )
     position = models.PositiveIntegerField(default=0)
-    start = models.DateField(null=True, blank=True)
-    duration = models.PositiveIntegerField(default=1, help_text=_("In weeks"))
-    delay = models.IntegerField(default=0, help_text=_("In weeks"))
+    start = models.DateField(_("Start"), null=True, blank=True)
+    duration = models.PositiveIntegerField(
+        _("Duration"), default=1, help_text=_("In weeks")
+    )
+    delay = models.IntegerField(_("Delay"), default=0, help_text=_("In weeks"))
 
     class Meta:
         verbose_name = _("Phase")
