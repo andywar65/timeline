@@ -96,7 +96,7 @@ class PhaseModelTest(TestCase):
             get_chart_start_end(2023, 1), (date(2023, 1, 1), date(2023, 12, 31))
         )
         self.assertEquals(
-            get_chart_start_end(2023, 2), (date(2023, 7, 1), date(2024, 6, 30))
+            get_chart_start_end(2023, 7), (date(2023, 7, 1), date(2024, 6, 30))
         )
         print("\n-Test get chart start & end")
 
@@ -177,8 +177,9 @@ class PhaseViewTest(TestCase):
         PhaseDelayFactory.create(parent=parent, position=1, title="Last")
 
     def test_list_view(self):
+        parent = Phase.objects.get(title="Parent")
         response = self.client.get(
-            reverse("timeline:list", kwargs={"year": 2023, "month": 1})
+            reverse("timeline:list", kwargs={"pk": parent.id, "year": 2023, "month": 1})
         )
         self.assertEqual(response.status_code, 200)
         print("\n-Test list status 200")
@@ -189,23 +190,26 @@ class PhaseViewTest(TestCase):
         self.assertEquals(response.context["object_list"].first().tree_depth, 0)
         print("\n-Test list context")
         response = self.client.get(
-            reverse("timeline:list", kwargs={"year": 2023, "month": 1}),
+            reverse(
+                "timeline:list", kwargs={"pk": parent.id, "year": 2023, "month": 1}
+            ),
             headers={"hx-request": "true"},
         )
         self.assertTemplateUsed(response, "timeline/htmx/list.html")
         print("\n-Test list template with HTMX header")
 
     def test_create_view(self):
+        parent = Phase.objects.get(title="Parent")
         response = self.client.get(
-            reverse("timeline:create"), headers={"hx-request": "true"}
+            reverse("timeline:create", kwargs={"pk": parent.id}),
+            headers={"hx-request": "true"},
         )
         self.assertEqual(response.status_code, 200)
         print("\n-Test create status 200")
         self.assertTemplateUsed(response, "timeline/htmx/create.html")
         print("\n-Test create template")
-        parent = Phase.objects.get(title="Parent")
         response = self.client.post(
-            reverse("timeline:create"),
+            reverse("timeline:create", kwargs={"pk": parent.id}),
             {
                 "title": "Foo",
                 "parent": parent.id,
@@ -219,7 +223,7 @@ class PhaseViewTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse("timeline:add_button") + "?refresh=true",
+            reverse("timeline:refresh_list"),
             status_code=302,
             target_status_code=200,
         )
@@ -261,7 +265,7 @@ class PhaseViewModifyTest(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse("timeline:detail", kwargs={"pk": ph1.id}) + "?refresh=true",
+            reverse("timeline:refresh_list"),
             status_code=302,
             target_status_code=200,
         )
