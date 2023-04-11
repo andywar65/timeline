@@ -14,7 +14,8 @@
       <button class="btn-close"
               title="{% trans 'Dismiss' %}"
               hx-get="{% url 'timeline:project_add_button' %}"
-              hx-target="#add-button">
+              hx-target="#add-button"
+              hx-swap="innerHTML">
       </button>
     </div>
   </form>
