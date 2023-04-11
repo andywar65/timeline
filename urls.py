@@ -34,7 +34,7 @@ urlpatterns = [
         name="base",
     ),
     path(
-        _("project/list/<int:year>/<int:month>/"),
+        _("project/list/year/<int:year>/<int:month>/"),
         ProjectListView.as_view(),
         name="project_list",
     ),
@@ -50,7 +50,7 @@ urlpatterns = [
     ),
     # Phase urlpatterns
     path(
-        _("project/<pk>/<int:year>/<int:month>/"),
+        _("project/<pk>/year/<int:year>/<int:month>/"),
         PhaseListView.as_view(),
         name="list",
     ),
