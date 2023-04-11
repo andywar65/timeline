@@ -10,6 +10,7 @@ from .views.phase import (
     PhaseMoveDownView,
     PhaseMoveUpView,
     PhaseUpdateView,
+    RefreshListView,
 )
 from .views.project import (
     BaseRedirectView,
@@ -20,6 +21,12 @@ from .views.project import (
 
 app_name = "timeline"
 urlpatterns = [
+    # Generic urlpatterns
+    path(
+        "refresh/list/",
+        RefreshListView.as_view(),
+        name="refresh_list",
+    ),
     # Project urlpatterns
     path(
         "",

@@ -4,7 +4,7 @@
 <div class="card text-dark">
   <form
     hx-post="{% url 'timeline:project_create' %}"
-    hx-target="#add-button">
+    hx-swap="none">
     <div class="card-body">
       {% bootstrap_form form %}
       <button class="btn btn-success" type="submit">

@@ -10,6 +10,7 @@ from django.views.generic import (
     TemplateView,
     UpdateView,
 )
+
 from timeline.forms import PhaseCreateForm
 from timeline.models import (
     Phase,
@@ -112,6 +113,12 @@ class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
             reverse("timeline:add_button", kwargs={"pk": self.project.id})
             + "?refresh=true"
         )
+
+
+class RefreshListView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
+    """Void template, triggers refresh list"""
+
+    template_name = "timeline/htmx/none.html"
 
 
 class PhaseAddButtonView(
