@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
@@ -18,9 +19,10 @@ class BaseRedirectView(RedirectView):
         )
 
 
-class ProjectListView(HxPageTemplateMixin, ListView):
+class ProjectListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     """Rendered in #content"""
 
+    permission_required = "timeline.view_phase"
     model = Phase
     template_name = "timeline/project/htmx/list.html"
 
@@ -39,6 +41,7 @@ class ProjectListView(HxPageTemplateMixin, ListView):
 class ProjectCreateView(HxOnlyTemplateMixin, FormView):
     """Rendered in #add_button, swaps none"""
 
+    permission_required = "timeline.add_phase"
     model = Phase
     form_class = ProjectCreateForm
     template_name = "timeline/project/htmx/create.html"
