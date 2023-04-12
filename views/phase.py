@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -47,9 +48,10 @@ class RefreshListMixin:
         return response
 
 
-class PhaseListView(HxPageTemplateMixin, ListView):
+class PhaseListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     """Rendered in #content"""
 
+    permission_required = "timeline.view_phase"
     model = Phase
     template_name = "timeline/htmx/list.html"
 
@@ -71,9 +73,10 @@ class PhaseListView(HxPageTemplateMixin, ListView):
         return context
 
 
-class PhaseCreateView(HxOnlyTemplateMixin, CreateView):
+class PhaseCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateView):
     """Rendered in #add_button, swaps none"""
 
+    permission_required = "timeline.add_phase"
     model = Phase
     form_class = PhaseCreateForm
     template_name = "timeline/htmx/create.html"
@@ -119,9 +122,10 @@ class PhaseAddButtonView(HxOnlyTemplateMixin, TemplateView):
         return context
 
 
-class PhaseDetailView(HxOnlyTemplateMixin, DetailView):
+class PhaseDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
     """Rendered in #phase-index-{{ self.id }}"""
 
+    permission_required = "timeline.view_phase"
     model = Phase
     context_object_name = "phase"
     template_name = "timeline/htmx/detail.html"
@@ -135,9 +139,10 @@ class PhaseDetailView(HxOnlyTemplateMixin, DetailView):
         return context
 
 
-class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
+class PhaseUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
     """Rendered in and redirects to #phase-index-{{ self.id }}"""
 
+    permission_required = "timeline.change_phase"
     model = Phase
     form_class = PhaseCreateForm
     template_name = "timeline/htmx/update.html"
@@ -161,9 +166,12 @@ class PhaseUpdateView(HxOnlyTemplateMixin, UpdateView):
         return reverse("timeline:refresh_list")
 
 
-class PhaseDeleteView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
+class PhaseDeleteView(
+    PermissionRequiredMixin, HxOnlyTemplateMixin, RefreshListMixin, TemplateView
+):
     """Rendered in #phase-index-{{ self.id }}, triggers refresh list"""
 
+    permission_required = "timeline.delete_phase"
     template_name = "timeline/htmx/delete.html"
 
     def setup(self, request, *args, **kwargs):
@@ -175,9 +183,12 @@ class PhaseDeleteView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
         phase.delete()
 
 
-class PhaseMoveDownView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
+class PhaseMoveDownView(
+    PermissionRequiredMixin, HxOnlyTemplateMixin, RefreshListMixin, TemplateView
+):
     """Rendered in #phase-index-{{ self.id }}, triggers refresh list"""
 
+    permission_required = "timeline.change_phase"
     template_name = "timeline/htmx/move.html"
 
     def setup(self, request, *args, **kwargs):
@@ -186,9 +197,12 @@ class PhaseMoveDownView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
         self.object.move_down()
 
 
-class PhaseMoveUpView(HxOnlyTemplateMixin, RefreshListMixin, TemplateView):
+class PhaseMoveUpView(
+    PermissionRequiredMixin, HxOnlyTemplateMixin, RefreshListMixin, TemplateView
+):
     """Rendered in #phase-index-{{ self.id }}, triggers refresh list"""
 
+    permission_required = "timeline.change_phase"
     template_name = "timeline/htmx/move.html"
 
     def setup(self, request, *args, **kwargs):
