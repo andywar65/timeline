@@ -7,40 +7,42 @@
      hx-target="#content"
      hx-push-url="true">
 </div>
-{% bootstrap_messages %}
-<table class="table table-hover table-sm">
-  <thead class="table-dark" style="margin-top: 60px; position: sticky; top: 60; z-index: 1">
-    <tr>
-      <th scope="col" id="add-button">{% include "timeline/project/htmx/add_button.html" %}</th>
-      <th scope="col">{% include "timeline/project/htmx/year.html" %}</th>
-    </tr>
-    <tr>
-      <th scope="col">{% trans "Project title" %}</th>
-      <th scope="col" class="text-center">{% include "timeline/htmx/months.html" %}</th>
-    </tr>
-  </thead>
-  {% if object_list %}
-    <tbody>
-      {% for phase in object_list %}
-        <tr>
-          <td id="phase-index-{{ phase.id }}">
-            {% include "timeline/htmx/detail.html" %}
-          </td>
-          <td>
-            <div style="{% draw_project_bar_chart phase year month %}">
-              <a class="link-primary"
-                 hx-get="{% url 'timeline:list' pk=phase.id year=year month=month %}"
-                 hx-target="#content"
-                 hx-push-url="true"
-                 title="{{ phase.get_project_popup }}">
-                <i class="fa fa-info-circle"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  {% else %}
-    <p>{% trans "No projects yet" %}</p>
-  {% endif %}
-</table>
+<div style="margin-top: 60px">
+  {% bootstrap_messages %}
+  <table class="table table-hover table-sm">
+    <thead class="table-dark" style="position: sticky; top: 0; z-index: 1">
+      <tr>
+        <th scope="col" id="add-button">{% include "timeline/project/htmx/add_button.html" %}</th>
+        <th scope="col">{% include "timeline/project/htmx/year.html" %}</th>
+      </tr>
+      <tr>
+        <th scope="col">{% trans "Project title" %}</th>
+        <th scope="col" class="text-center">{% include "timeline/htmx/months.html" %}</th>
+      </tr>
+    </thead>
+    {% if object_list %}
+      <tbody>
+        {% for phase in object_list %}
+          <tr>
+            <td id="phase-index-{{ phase.id }}">
+              {% include "timeline/htmx/detail.html" %}
+            </td>
+            <td>
+              <div style="{% draw_project_bar_chart phase year month %}">
+                <a class="link-primary"
+                   hx-get="{% url 'timeline:list' pk=phase.id year=year month=month %}"
+                   hx-target="#content"
+                   hx-push-url="true"
+                   title="{{ phase.get_project_popup }}">
+                  <i class="fa fa-info-circle"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    {% else %}
+      <p>{% trans "No projects yet" %}</p>
+    {% endif %}
+  </table>
+</div>
